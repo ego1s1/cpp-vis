@@ -1,26 +1,146 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "./fonts.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-stack: var(--stack);
+  --color-heap: var(--heap);
+  --color-pointer: var(--pointer);
+  --color-reference: var(--reference);
+  --color-current: var(--current);
+  --font-mono: 'Iosevka Nerd Font', 'Iosevka', 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: 'Iosevka Nerd Font', 'Iosevka', 'JetBrains Mono', ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --bg: #0f111a;
+  --surface: #1a1b26;
+  --surface-alt: #24283b;
+  --elevated: #2f3549;
+  --border: #414868;
+  --text: #c0caf5;
+  --text-secondary: #9aa5ce;
+  --text-muted: #565f89;
+  --stack: #f7768e;
+  --heap: #9ece6a;
+  --pointer: #7dcfff;
+  --reference: #bb9af7;
+  --current: #e0af68;
+  --code-bg: #090a10;
 }
 
+[data-theme="tokyo"] {
+  --bg: #0f111a;
+  --surface: #1a1b26;
+  --surface-alt: #24283b;
+  --elevated: #2f3549;
+  --border: #414868;
+  --text: #c0caf5;
+  --text-secondary: #9aa5ce;
+  --text-muted: #565f89;
+  --code-bg: #090a10;
+}
+[data-theme="everforest"] {
+  --bg: #1e2326;
+  --surface: #272e33;
+  --surface-alt: #2e383c;
+  --elevated: #374145;
+  --border: #4a555b;
+  --text: #d3c6aa;
+  --text-secondary: #9da9a0;
+  --text-muted: #5c6a72;
+  --code-bg: #15191c;
+}
+[data-theme="catppuccin"] {
+  --bg: #181825;
+  --surface: #1e1e2e;
+  --surface-alt: #313244;
+  --elevated: #45475a;
+  --border: #45475a;
+  --text: #cdd6f4;
+  --text-secondary: #bac2de;
+  --text-muted: #585b70;
+  --code-bg: #11111b;
+}
+[data-theme="gruvbox"] {
+  --bg: #1d2021;
+  --surface: #282828;
+  --surface-alt: #32302f;
+  --elevated: #3c3836;
+  --border: #504945;
+  --text: #ebdbb2;
+  --text-secondary: #d5c4a1;
+  --text-muted: #928374;
+  --code-bg: #121212;
+}
+
+/* modular theme transition */
+html, body, [class*="bg-"], [class*="text-"], [class*="border-"] {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, fill 0.35s ease, stroke 0.35s ease;
+}
+
+* { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+*::-webkit-scrollbar { width: 7px; height: 7px; }
+*::-webkit-scrollbar-thumb { background: var(--border); border-radius: 9999px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Iosevka Nerd Font', 'Iosevka', 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-ligatures: none;
+  -webkit-font-smoothing: antialiased;
+}
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Iosevka Nerd Font', 'Iosevka', 'JetBrains Mono', ui-monospace, monospace;
+  margin: 0;
+  overflow: hidden;
 }
+
+.bg-grid {
+  background-image: radial-gradient(circle, rgba(65,72,104,0.14) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.breakpoint-dot {
+  width: 9px; height: 9px; border-radius: 9999px;
+  background: var(--stack);
+  box-shadow: 0 0 0 3px rgba(247,118,142,0.18);
+}
+
+/* CodeMirror - enforce Tokyo Night, fix white flash */
+.cm-editor {
+  background-color: #1a1b26 !important;
+  color: #c0caf5 !important;
+  height: 100%;
+  font-family: 'Iosevka Nerd Font', 'Iosevka', 'JetBrains Mono', ui-monospace, monospace !important;
+}
+.cm-editor.cm-focused { outline: none !important; }
+.cm-scroller {
+  background-color: #1a1b26 !important;
+  font-family: 'Iosevka Nerd Font', 'Iosevka', 'JetBrains Mono', ui-monospace, monospace !important;
+}
+.cm-content {
+  background-color: #1a1b26 !important;
+  caret-color: #c0caf5 !important;
+}
+.cm-gutters {
+  background-color: #1a1b26 !important;
+  border-right: 1px solid #24283b !important;
+}
+.cm-breakpoint-gutter { width: 28px; }
+.cm-diagnostic { font-family: 'Iosevka Nerd Font', monospace; font-size: 11px; }
+
+/* Animations */
+@keyframes slideUp { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.animate-slideUp { animation: slideUp 0.22s ease-out; }
+.animate-fadeIn { animation: fadeIn 0.22s ease-out; }
